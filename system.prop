@@ -1,3 +1,7 @@
 #
 # system.prop for mx
 #
+ro.cwm.crypto.passwd="64656661756c745f70617373776f7264"
+ro.cwm.forbid_format=/frp,/persistent,/lk,/uboot,/logo,/metadata,/nvdata,/nvram,/secro,/metadata
+ro.cwm.forbid_mount=/frp,/persistent,/lk,/uboot,/logo,/metadata,/nvdata,/nvram,/secro,/metadata
+ro.cwm.touch_accuracy=9

@@ -30,9 +30,10 @@ TARGET_BOARD_SUFFIX := _64
 TARGET_USES_64_BIT_BINDER := true
 
 # CFLAGS
-TARGET_GLOBAL_CFLAGS   += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+COMMON_GLOBAL_CPPFLAGS += -DNO_SECURE_DISCARD
 WITH_DEXPREOPT := true
 
 # ARGUMENTS
@@ -57,6 +58,8 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 BOARD_HAS_LARGE_FILESYSTEM := true
 
+TARGET_USES_EXFAT := true
+
 # GRAPHICS
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/egl.cfg
@@ -69,20 +72,20 @@ DEVICE_SCREEN_WIDTH := 720
 DEVICE_SCREEN_HEIGHT := 1280
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/class/leds/lcd-backlight/brightness\"
-#TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/recovery/init.rc
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/etc/recovery.fstab
 
-# CARLIV
 RECOVERY_VARIANT := carliv
+
+ifeq ($(RECOVERY_VARIANT),carliv)
+# CARLIV
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/etc/recovery.fstab
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"font_16x35.h\"
 DEVICE_RESOLUTION := 720x1280
 BOARD_INCLUDE_CRYPTO := true
 BOARD_HAS_MTK_CPU := true
-
+else
 # TWRP
 TW_NO_REBOOT_BOOTLOADER := true
-#RECOVERY_VARIANT := twrp
-#TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/etc/twrp.fstab
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/etc/twrp.fstab
 TW_THEME := portrait_hdpi
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
@@ -97,3 +100,4 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_MAX_BRIGHTNESS := 255
 BOARD_SUPPRESS_SECURE_ERASE := true
 TW_INCLUDE_CRYPTO := true
+endif

@@ -25,13 +25,10 @@ PRODUCT_NAME := full_mx
 PRODUCT_DEVICE := mx
 PRODUCT_MODEL := MX_Base
 
-ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0
-ifneq ($(RECOVERY_VARIANT),carliv)
-	ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mass_storage
-else
-	ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp
-endif
-ADDITIONAL_DEFAULT_PROPERTIES += persist.service.acm.enable=0 \
+ADDITIONAL_DEFAULT_PROPERTIES += \
+ro.adb.secure=0 \
+persist.sys.usb.config=mtp \
+persist.service.acm.enable=0 \
 ro.secure=0 \
 ro.allow.mock.location=1 \
 ro.debuggable=1 \

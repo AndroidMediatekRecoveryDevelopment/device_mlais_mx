@@ -13,10 +13,10 @@
 # limitations under the License.
 
 # Inherit from those products. Most specific first.
-$(call inherit-product, device/mlais/mx/device_mx.mk)
+$(call inherit-product, device/mlais/mx/mx.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 PRODUCT_NAME := full_mx
 PRODUCT_DEVICE := mx
-PRODUCT_BRAND := mlais
+PRODUCT_BRAND := Mlais
 PRODUCT_MODEL := MX_Base

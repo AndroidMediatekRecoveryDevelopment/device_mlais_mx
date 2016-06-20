@@ -58,6 +58,10 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 BOARD_HAS_LARGE_FILESYSTEM := true
 
+# USB OTG and External Sdcard
+TARGET_USES_EXFAT := true
+TARGET_USES_NTFS := true
+
 # GRAPHICS
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/egl.cfg
@@ -68,17 +72,17 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
 DEVICE_SCREEN_WIDTH := 720
 DEVICE_SCREEN_HEIGHT := 1280
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
-TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/class/leds/lcd-backlight/brightness\"
+TARGET_RECOVERY_LCD_BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 RECOVERY_VARIANT := carliv
 
-ifndef RECOVERY_VARIANT
+ifneq ($(RECOVERY_VARIANT),twrp)
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/etc/recovery.fstab
 endif
 
 # CARLIV
 ifeq ($(RECOVERY_VARIANT),carliv)
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/etc/recovery.fstab
+VIBRATOR_TIMEOUT_FILE := /sys/devices/virtual/timed_output/vibrator/enable
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"font_16x35.h\"
 DEVICE_RESOLUTION := 720x1280
 BOARD_INCLUDE_CRYPTO := true
